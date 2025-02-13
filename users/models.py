@@ -8,6 +8,9 @@ class User(AbstractUser):
     is_customer = models.BooleanField(default=False)
     email = models.CharField(max_length=100, unique=True)
 
+    def __str__(self):
+        return self.username
+
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
