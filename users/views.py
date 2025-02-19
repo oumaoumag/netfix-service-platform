@@ -4,7 +4,7 @@ from django.views.generic import CreateView, TemplateView
 
 from .forms import CustomerSignUpForm, CompanySignUpForm, UserLoginForm
 from .models import User, Company, Customer
-
+from django.contrib.auth.forms import AuthenticationForm
 
 def register(request):
     return render(request, 'users/register.html')
@@ -41,4 +41,14 @@ class CompanySignUpView(CreateView):
 
 
 def LoginUserView(request):
-    pass
+    form = AuthenticationForm()
+    
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('/')
+        
+    return render(request, "users/login.html", {"form":form})
+   
