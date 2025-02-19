@@ -1,13 +1,31 @@
 {% extends 'main/base.html' %} 
+
 {% block title %}
   Company Registration
-{%endblock %}
+{% endblock %}
 
 {% block content %}
+  <div class="container mt-5">
+    <h2>Company Registration</h2>
+
     <form method="POST">
-        {% csrf_token %}
-        {{form}}
-        <span class="helptext">Choose Field Above</span>
-        <button type="submit" name="register">Register</button>
+      {% csrf_token %}
+
+      <!-- Display Form Fields with Labels -->
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="btn btn-primary">Register</button>
     </form>
+  </div>
 {% endblock %}
