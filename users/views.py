@@ -44,11 +44,17 @@ def LoginUserView(request):
     form = AuthenticationForm()
     
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = UserLoginForm(request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('/')
+            email = form.changed_data['email']
+            password = form.changed_data['password']
+            user = authenticate(request, username=email,password=password)
+            if user is not None:
+                login(request,user)
+                return redirect('/')
+            else:
+                form.add_error(None, "Invalid email or password")
+               
         
     return render(request, "users/login.html", {"form":form})
    

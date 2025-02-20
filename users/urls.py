@@ -1,5 +1,6 @@
 from django.urls import path
-from django.contrib.auth import views
+from django.contrib.auth import views as auth_views
+
 
 from .forms import UserLoginForm
 from . import views as v

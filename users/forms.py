@@ -18,11 +18,25 @@ def validate_email(value):
 
 
 class CustomerSignUpForm(UserCreationForm):
-    pass
+   # email = forms.EmailField(validators=[validate_email])
+    date_of_birth = forms.DateField(widget=DateInput())
+
+    class Meta:
+        model = User  # Ensure this refers to the correct model
+        fields = ["username", "email", "password1", "password2"]  # Define necessary fields
+
+    @transaction.atomic
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_customer = True  # Ensure this field exists in the User model
+        if commit:
+            user.save()
+            Customer.objects.create(user=user, date_of_birth=self.cleaned_data["date_of_birth"])
+        return user
 
 
 class CompanySignUpForm(UserCreationForm):
-  #  email = forms.EmailField(validators=[validate_email])
+    email = forms.EmailField(validators=[validate_email])
     #field = forms.ChoiceField(choices=Company._meta.get_field('field').choices)
     field = forms.ChoiceField(
         choices=Company._meta.get_field('field').choices,
@@ -40,15 +54,13 @@ class CompanySignUpForm(UserCreationForm):
         user.is_company = True
         if commit:
             user.save()
-            Company.objects.create(user-user, field=self.cleaned_data["field"])
+            Company.objects.create(user=user, field=self.cleaned_data["field"])
             return user
        
 
 
 class UserLoginForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super(UserLoginForm, self).__init__(*args, **kwargs)
-
+   
     email = forms.EmailField(widget=forms.TextInput(
         attrs={'placeholder': 'Enter Email'}))
     password = forms.CharField(
