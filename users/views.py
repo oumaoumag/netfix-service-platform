@@ -5,6 +5,7 @@ from django.views.generic import CreateView, TemplateView
 from .forms import CustomerSignUpForm, CompanySignUpForm, UserLoginForm
 from .models import User, Company, Customer
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     return render(request, 'users/register.html')
@@ -63,3 +64,7 @@ def LoginUserView(request):
         form = UserLoginForm()
 
     return render(request, "users/login.html", {"form": form})
+
+@login_required
+def profile(request):
+    return render(request, "users/profile.html",{"user":request.user})

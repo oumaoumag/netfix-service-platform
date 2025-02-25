@@ -19,11 +19,12 @@
         </li>
 
         {% if user.is_authenticated %}
-            <li><a href="/company/{{ user.username }}">Profile</a></li>
-            <li><a href="{% url 'main:logout' %}">Logout</a></li>
-        {% else %}
-        <li><a href="{% url 'users:login_user' %}">Login</a></li>
-        <li><a href="/register/">Register</a></li>
-        {% endif %}
+    <li><a href="{% url 'users:profile' %}">Profile</a></li>
+    <li><a href="{% url 'main:logout' %}">Logout</a></li>
+{% else %}
+    <li><a href="{% url 'users:login_user' %}">Login</a></li>
+    <li><a href="/register/">Register</a></li>
+{% endif %}
+
     </ul>
 </nav>
