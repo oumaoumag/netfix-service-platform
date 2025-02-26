@@ -1,7 +1,7 @@
 from django import forms
 
 from users.models import Company
-from .models import Service
+from .models import Service, RequestService
 
 
 class CreateNewService(forms.ModelForm):
@@ -28,5 +28,8 @@ class CreateNewService(forms.ModelForm):
         self.fields['name'].widget.attrs['autocomplete'] = 'off'
 
 
-class RequestServiceForm(forms.Form):
-    pass
+class RequestServiceForm(forms.ModelForm):
+    class Meta:
+        model = RequestService
+        fields = ['address', 'hours']
+    

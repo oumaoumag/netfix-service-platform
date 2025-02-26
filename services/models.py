@@ -32,3 +32,15 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
+class RequestService(models.Model):
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    address = models.CharField(max_length=100)
+    hours = models.IntegerField(
+        validators=[MinValueValidator(0)]
+    )
+    date = models.DateTimeField(auto_now=True, null=False)
+    def __str__(self):
+        return self.address

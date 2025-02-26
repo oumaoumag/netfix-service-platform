@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 
 from users.models import Company, Customer, User
@@ -59,4 +59,17 @@ def service_field(request, field):
 
 
 def request_service(request, id):
-    return render(request, 'services/request_service.html', {})
+    service = get_object_or_404(Service, id=id)
+    user = get_object_or_404(Customer, user = request.user)
+    form = RequestServiceForm()
+    if request.method == "POST":
+        form = RequestServiceForm(request.POST)
+        if form.is_valid():
+            request_service = form.save(commit=False)
+            request_service.service = service
+            request_service.user = user
+            request_service.save()
+            return redirect(f'/customer/{request.user.username}')
+    else:
+        form = RequestServiceForm()
+    return render(request, 'services/request_service.html', {'form': form})
