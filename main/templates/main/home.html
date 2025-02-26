@@ -11,7 +11,7 @@
 
         <!-- Most Requested Services Section -->
             <h2 class="title">Most Requested Services</h2>
-                {% for service in most_requested_services %}
+                {% for service in services %}
                 <div>
                     <a href="/services/{{service.service.id}}">{{service.service}}</a> ({{service.service.field}})
                     <p style="margin: 0; display: inline-block;"> ❱❱ {{service.price_hour}}</p>
