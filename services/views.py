@@ -21,21 +21,28 @@ def index(request, id):
 
 @login_required
 def create(request):
-    if not request.user.is_company:  # Ensure only companies can create services
-        return redirect('services_list')
-
+    try:
+        company = Company.objects.get(user = request.user)
+    except Company.DoesNotExist:
+        redirect('/')
+        
+    services_offered = Company.objects.filter(user = request.user).values_list('field', flat=True).distinct()
+    choices = [(field, field) for field in services_offered]
+    
+    if any(choices[0]=='All in One' for choice in choices):
+        choices = [(field, field) for field, _ in Company._meta.get_field("field").choices if field != 'All in One']
+        
+        
+    form = CreateNewService(choices=choices)
+    
+    
     if request.method == "POST":
-        form = CreateNewService(request.POST)
+        form = CreateNewService(request.POST, choices=choices)
         if form.is_valid():
-            service = Service(
-                company=request.user.company,  # Assign the logged-in company
-                name=form.cleaned_data['name'],
-                description=form.cleaned_data['description'],
-                price_hour=form.cleaned_data['price_hour'],
-                field=form.cleaned_data['field']
-            )
+            service = form.save(commit = False)
+            service.company = company
             service.save()
-            return redirect('services_list')
+            return redirect(f'/services/{service.id}')
     else:
         form = CreateNewService(choices=Service.choices)  # Pass choices
 

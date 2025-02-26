@@ -4,23 +4,15 @@
 {% endblock %}
 {% block content %}
     <p class="title">Services</p>
-
-    {% if user.is_authenticated and user.company %}
-        <a class="create_service" href="{% url 'services_create' %}">Create Service</a>
+    {% if user.is_company %}
+        <a class="create_service" href="/services/create"> Create Service</a>
     {% endif %}
-
     <div class='services_list'>
         {% if services %}
             {% for service in services.all %}
-                <div class='service_item'>
-                    <h3><a href="{% url 'index' service.id %}">{{ service.name }}</a> - {{ service.price_hour }}€/hour</h3>
-                    <p>{{ service.description }}</p>
-                    <p>by <a href="{% url 'company_profile' service.company.user.username %}">{{ service.company.user }}</a></p>
-                    <hr>
-                </div>
             {% endfor %}
         {% else %}
-            <h2>Sorry, no services available yet.</h2>
+            <h2>Sorry No services available yet</h2>
         {% endif %}
-    </div>
+     </div>
 {% endblock %}
