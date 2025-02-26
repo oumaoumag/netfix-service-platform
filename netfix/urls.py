@@ -27,6 +27,5 @@ urlpatterns = [
     
     path('customer/<slug:name>', v.customer_profile, name='customer_profile'),
     
-    path('company/', v.company_profile, name='company_list'),
-   # path('company/<slug:name>', v.company_profile, name='company_profile')
+    path('company/<slug:name>', v.company_profile, name='company_profile')
 ]

@@ -12,15 +12,9 @@ def customer_profile(request):
     pass
 
 
-def company_profile(request):
-    if not hasattr(request.user, 'company'):
-        return HttpResponseForbidden("you do not currently have services or acces to this page")
+def company_profile(request, name):
     # fetches the company user and all of the services available by it
-    #if name is None:
-     #   return HttpResponse("Company name is required",status=400)
-    company = request.user.company
-    services = Service.objects.filter(company=company).order_by("-date")
-   # services = Service.objects.filter(
-    #    company=Company.objects.get(user=user)).order_by("-date")
-
-    return render(request, 'users/company_profile.html', {'company': company, 'services': services})
+    user = User.objects.get(username=name)
+    services = Service.objects.filter(
+        company=Company.objects.get(user=user)).order_by("-date")
+    return render(request, 'users/profile.html', {'user': user, 'services': services})
