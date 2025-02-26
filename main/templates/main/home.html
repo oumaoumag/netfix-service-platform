@@ -1,11 +1,25 @@
-{% extends 'main/base.html' %} 
-    {% block title %}
-        NetFix
-    {% endblock %}
+{% extends 'main/base.html' %}
+
+{% block title %}
+    NetFix
+{% endblock %}
 
 {% block content %}
-    <div style="margin-top: 50px;">
+    <div>
         <p class="site_title">NetFix</p>
         <img class="home_logo" src="static/css/logo.png" alt="logo">
+
+        <!-- Most Requested Services Section -->
+            <h2 class="title">Most Requested Services</h2>
+                {% for service in most_requested_services %}
+                <div>
+                    <a href="/services/{{service.service.id}}">{{service.service}}</a> ({{service.service.field}})
+                    <p style="margin: 0; display: inline-block;"> ❱❱ {{service.price_hour}}</p>
+                    <p style="float: right; margin: 0;">
+                        by <a href="/company/{{service.service.company.user}}">{{service.service.company.user}}</a>
+                    </p> 
+                </div>
+                <div class="line"></div>
+            {% endfor %}
     </div>
 {% endblock %}
