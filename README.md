@@ -88,6 +88,12 @@ NetFix is a Django-based service marketplace that connects companies offering ho
 3. Submit a pull request with a detailed description.
 4. Follow PEP8 guidelines for code style.
 
+## Authors
+
+- **Sheila Juma** - [GitHub Profile](https://learn.zone01kisumu.ke/git/sjuma)
+- **Ouma Ouma** - [GitHub Profile](https://github.com/oumaoumag)
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+
