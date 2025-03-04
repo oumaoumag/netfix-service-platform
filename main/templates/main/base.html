@@ -8,16 +8,17 @@
       href="{% static 'css/style.css' %}"
     />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Title{% endblock %}</title>
+    <title>{% block title %}NetFix{% endblock %}</title>
   </head>
   <body>
     {% include 'main/navbar.html' %}
     <!-- places the content of navbar.html here -->
-    <div class='content'>
+    <main class="main-content">
       {% block content %} replace me {% endblock %}
-    </div>
+    </main>
   </body>
 </html>
