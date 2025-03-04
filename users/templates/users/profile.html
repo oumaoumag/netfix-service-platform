@@ -4,42 +4,58 @@
 {% endblock %}
 
 {% block content %}
-    {% if user.is_customer %}
-        <div style="display: ruby;">
-            <h1>{{ user.username }} ({{user_age}} y/o)</h1>
-            <p>{{ user.email }}</p>
-            <p style="float: right;">Customer</p>
+    <div class="profile-container">
+        <div class="profile-header">
+            {% if user.is_customer %}
+                <div class="user-info">
+                    <h1>{{ user.username }} <span class="age">({{user_age}} y/o)</span></h1>
+                    <p class="email">{{ user.email }}</p>
+                    <span class="user-type">Customer</span>
+                </div>
+            {% else %}
+                <div class="user-info">
+                    <h1>{{ user.username }}</h1>
+                    <p class="email">{{ user.email }}</p>
+                    <span class="user-type">{{user.company.field}} Company</span>
+                </div>
+            {% endif %}
         </div>
-    {% else %}
-        <div style="display: ruby;">
-            <h1>{{ user.username }}</h1>
-            <p> {{ user.email }}</p>
-            <p style="float: right;">{{user.company.field}} Company</p>
-        </div>
-       {% endif %}
-    {% if 'customer' in request.path %}
-        <p class="title">Previous Requested Services</p>
-    {% else %}
-        <p class="title">Available Services</p>
-    {% endif %}
-    {% if user.is_customer %}
-        {% for service in services %}
-            <div>
-                <a href="/services/{{service.service.id}}">{{service.service.name}}</a> ({{service.service.field}})
-                <p style="margin: 0; display: inline-block;"> ❱❱ {{service.price}}</p>
-                <p style="margin: 0; display: inline-block;"> ❱❱ {{ service.date }}</p>
-                <p style="float: right; margin: 0;">
-                    by <a href="/company/{{service.service.company.user}}">{{service.service.company.user}}</a>
-                </p> 
+
+        <div class="services-section">
+            <h2 class="section-title">
+                {% if 'customer' in request.path %}
+                    Previous Requested Services
+                {% else %}
+                    Available Services
+                {% endif %}
+            </h2>
+
+            <div class="services-grid">
+                {% if user.is_customer %}
+                    {% for service in services %}
+                        <div class="service-card">
+                            <div class="service-header">
+                                <h3><a href="/services/{{service.service.id}}">{{service.service.name}}</a></h3>
+                                <span class="service-field">{{service.service.field}}</span>
+                            </div>
+                            <div class="service-details">
+                                <p class="price">€{{service.price}}</p>
+                                <p class="date">{{service.date|date:"F j, Y"}}</p>
+                                <p class="provider">
+                                    by <a href="/company/{{service.service.company.user}}">{{service.service.company.user}}</a>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for service in services %}
+                        <div class="service-card">
+                            <h3><a href="/services/{{service.id}}">{{service.name}}</a></h3>
+                            <p class="price">{{service.price_hour}}€/hour</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
-            <div class="line"></div>
-        {% endfor %}
-    {% else %}
-        {% for service in services %}
-        <div class="list_services_profile">
-            <a href="/services/{{service.id}}">{{service.name}}</a>-- {{service.price_hour}}€/hour
-            <div class="line"></div>
         </div>
-        {% endfor %}
-    {% endif %}
+    </div>
 {% endblock %}

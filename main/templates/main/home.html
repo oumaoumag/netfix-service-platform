@@ -5,21 +5,29 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        <p class="site_title">NetFix</p>
+    <div class="hero-section">
+        <h1 class="site_title">NetFix</h1>
         <img class="home_logo" src="static/css/logo.png" alt="logo">
-
-        <!-- Most Requested Services Section -->
-            <h2 class="title">Most Requested Services</h2>
-                {% for service in services %}
-                <div>
-                    <a href="/services/{{service.service.id}}">{{service.service}}</a> ({{service.service.field}})
-                    <p style="margin: 0; display: inline-block;"> ❱❱ {{service.price_hour}}</p>
-                    <p style="float: right; margin: 0;">
-                        by <a href="/company/{{service.service.company.user}}">{{service.service.company.user}}</a>
-                    </p> 
-                </div>
-                <div class="line"></div>
-            {% endfor %}
+        <p class="hero-description">Find and request professional home services in your area</p>
     </div>
+
+    <section class="most-requested">
+        <h2 class="section-title">Most Requested Services</h2>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-header">
+                    <h3><a href="/services/{{service.service.id}}">{{service.service}}</a></h3>
+                    <span class="service-field">{{service.service.field}}</span>
+                </div>
+                <div class="service-details">
+                    <p class="service-price">€{{service.price_hour}} per hour</p>
+                    <p class="service-provider">
+                        by <a href="/company/{{service.service.company.user}}">{{service.service.company.user}}</a>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}
