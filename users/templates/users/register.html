@@ -1,28 +1,23 @@
 {% extends 'main/base.html' %} 
 {% block title %}
   User Type
-{%endblock %}
+{% endblock %}
 
-{%block content %}
-    <p class="choice_text">Choose wether you want to be a customer or a company</p>
-    
-    <div style="margin-top: 70px;">
-        <div style="margin-left: 50px" class="choice">
-            <div class="company img" id="company">
-                <a href="/register/company">
-                    <img src="/static/css/company.png" alt="company" >
-                </a>
-            </div>
-            <p class="label_images">Company</p>
-        </div>
+{% block content %}
+  <p class="choice_text">Are you a customer seeking a service or a company providing a service?</p>
+  
+  <div style="margin-top: 70px; text-align: center;">
+      <div class="choice" style="display: inline-block; margin: 0 20px;">
+          <button type="button" onclick="window.location.href='/register/company';" style="padding: 20px 40px; font-size: 24px; border-radius: 8px;   border: 2px solid #2471a3;">
+              Company
+          </button>
+      </div>
 
-        <div style="float: right; margin-right: 50px;" class="choice">
-            <div class="img" id="customer">
-                <a href="/register/customer">
-                    <img src="/static/css/customer1.png" alt="customer">
-                </a>
-            </div>
-            <p>Customer</p>
-        </div>
-    </div>
+      <div class="choice" style="display: inline-block; margin: 0 20px;">
+          <button type="button" onclick="window.location.href='/register/customer';" style="padding: 20px 40px; font-size: 24px; border-radius: 8px; border: 2px solid #2471a3;
+">
+              Customer
+          </button>
+      </div>
+  </div>
 {% endblock %}

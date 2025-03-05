@@ -1,48 +1,26 @@
 {% extends 'main/base.html' %}
 {% block title %}
-    {{field}} Services | NetFix
+    {{field}} Services List
 {% endblock %}
 {% block content %}
-<div class="category-container">
-    <div class="category-header">
-        <a href="/services/" class="back-link">&larr; All Services</a>
-        <h1 class="category-title">{{field}} Services</h1>
-    </div>
 
     {% if services.all|length != 0 %}
-    <div class="services-grid">
-        {% for service in services.all %}
-        <div class="service-card">
-            <div class="service-header">
-                <h3><a href="/services/{{service.id}}">{{ service.name }}</a></h3>
-                <span class="service-field">{{ service.field }}</span>
-            </div>
-            
-            <div class="service-description">
-                <p>{{ service.description|truncatechars:120 }}</p>
-            </div>
-            
-            <div class="service-footer">
-                <div class="price-container">
-                    <span class="price">{{ service.price_hour }}€</span>
-                    <span class="price-label">per hour</span>
+        <p class="title">{{field}} Services</p>
+        <ul class='services_list'>
+            {% for service in services.all %}
+                <div style="display: ruby;">
+                    <div class='service_list_info'>
+                        <li><a href="/services/{{service.id}}">{{ service.name }}</a>-- {{ service.price_hour }}€/hour</li>
+                        <pre>{{ service.description }}</pre>
+                    </div>
+                    <p style="display:block; margin: 0; float: right;font-size: small; margin-right: 30px;">by <a href="/company/{{service.company.user}}">{{service.company.user}}</a></p>
                 </div>
-                <div class="provider-info">
-                    <span class="by">by</span>
-                    <a href="/company/{{service.company.user}}" class="provider-link">
-                        {{ service.company.user }}
-                    </a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+                {% if forloop.counter != services.all|length %}
+                    <div class="line"></div>
+                {% endif %}
+            {% endfor %}
+        </ul>
     {% else %}
-    <div class="no-services">
-        <img src="/static/css/empty-state.svg" alt="No services" class="empty-illustration">
-        <h2>No {{field}} services available yet</h2>
-        <p>Check back later or <a href="/services/">browse other categories</a></p>
-    </div>
+        <h2>Sorry. No {{field}} services available</h2>
     {% endif %}
-</div>
 {% endblock %}

@@ -1,39 +1,40 @@
 <nav class="navbar">
-    <a href="/" class="logo">
-        <img src="/static/css/logo.png" alt="NetFix Logo" height="40">
-    </a>
-    
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li class="dropdown">
-            <a href="/services/">Services <i class="fas fa-chevron-down"></i></a>
-            <ul>
-                <li><a href="/services/air-conditioner">Air Conditioner</a></li>
-                <li><a href="/services/carpentry">Carpentry</a></li>
-                <li><a href="/services/electricity">Electricity</a></li>
-                <li><a href="/services/gardening">Gardening</a></li>
-                <li><a href="/services/home-machines">Home Machines</a></li>
-                <li><a href="/services/house-keeping">House Keeping</a></li>
-                <li><a href="/services/interior-design">Interior Design</a></li>
-                <li><a href="/services/locks">Locks</a></li>
-                <li><a href="/services/painting">Painting</a></li>
-                <li><a href="/services/plumbing">Plumbing</a></li>
-                <li><a href="/services/water-heaters">Water Heaters</a></li>
-            </ul>
-        </li>
-        {% if user.is_company %}
-    <li><a href="/company/{{ request.user.username }}">Profile</a></li>
-    {% elif user.is_customer %}
-    <li><a href="/customer/{{ request.user.username }}">Profile</a></li>
-    {% endif %}
-
+    <ul style="display: ruby">
+      <li><a href="/">Home</a></li>
+      <li>
+        <a href="/services/">Services</a>
+        <ul>
+          <li><a href="/services/air-conditioner">Air Conditioner</a></li>
+          <li><a href="/services/carpentry">Carpentry</a></li>
+          <li><a href="/services/electricity">Electricity</a></li>
+          <li><a href="/services/gardening">Gardening</a></li>
+          <li><a href="/services/home-machines">Home Machines</a></li>
+          <li><a href="/services/house-keeping">House Keeping</a></li>
+          <li><a href="/services/interior-design">Interior Design</a></li>
+          <li><a href="/services/locks">Locks</a></li>
+          <li><a href="/services/painting">Painting</a></li>
+          <li><a href="/services/plumbing">Plumbing</a></li>
+          <li><a href="/services/water-heaters">Water Heaters</a></li>
+        </ul>
+      </li>
+      {% if user.is_company %}
+  
+      <li><a href="/company/{{ request.user.username }}">Profile</a></li>
+  
+      {% elif user.is_customer %}
+      <li><a href="/customer/{{ request.user.username }}">Profile</a></li>
+      {% endif %}
+  
+      <div style="display: block; margin: 0; float: right; margin-right: 30px">
         {% if user.is_authenticated %}
-    <li><a href="{% url 'users:profile' %}">Profile</a></li>
-    <li><a href="{% url 'main:logout' %}">Logout</a></li>
-{% else %}
-    <li><a href="{% url 'users:login_user' %}">Login</a></li>
-    <li><a href="/register/" class="button button-secondary">Sign Up</a></li>
-{% endif %}
-
+        <li><a href="/logout">logout</a></li>
+        {% else %}
+        <ul>
+          <li><a href="/register">Register</a></li>
+          <li><a href="/register/login">Login</a></li>
+        </ul>
+        {% endif %}
+      </div>
     </ul>
-</nav>
+  </nav>
+  
