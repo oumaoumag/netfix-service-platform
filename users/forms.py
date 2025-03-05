@@ -37,12 +37,13 @@ class CustomerSignUpForm(UserCreationForm):
     )
     date_of_birth = forms.DateField(
         label="Date of Birth",
-        widget=DateInput(attrs={'placeholder': 'Enter your date of birth'})
+        widget=DateInput(attrs={'placeholder': 'YYYY-MM-DD', 'class': 'form-control'})
     )
 
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2", "date_of_birth"]
+
 
 class CompanySignUpForm(UserCreationForm):
     email = forms.EmailField(validators=[validate_email])
