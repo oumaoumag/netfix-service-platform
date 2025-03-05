@@ -63,16 +63,21 @@ def service_field(request, field):
 
 def request_service(request, id):
     service = get_object_or_404(Service, id=id)
-    user = get_object_or_404(Customer, user = request.user)
-    form = RequestServiceForm()
+    user = get_object_or_404(Customer, user=request.user)
+    
     if request.method == "POST":
         form = RequestServiceForm(request.POST)
         if form.is_valid():
-            request_service = form.save(commit=False)
-            request_service.service = service
-            request_service.user = user
-            request_service.save()
-            return redirect(f'/customer/{request.user.username}')
+            # Ensure number of hours is at least 1
+            if form.cleaned_data.get("hours", 0) < 1:  # Corrected field name
+                messages.error(request, "Number of hours must be at least 1.")
+            else:
+                request_service = form.save(commit=False)
+                request_service.service = service
+                request_service.user = user
+                request_service.save()
+                return redirect(f'/customer/{request.user.username}')
     else:
         form = RequestServiceForm()
+
     return render(request, 'services/request_service.html', {'form': form})

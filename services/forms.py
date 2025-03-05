@@ -27,9 +27,29 @@ class CreateNewService(forms.ModelForm):
 
         self.fields['name'].widget.attrs['autocomplete'] = 'off'
 
-
 class RequestServiceForm(forms.ModelForm):
     class Meta:
         model = RequestService
         fields = ['address', 'hours']
-    
+        widgets = {
+            'address': forms.TextInput(attrs={'placeholder': 'Enter address'}),
+            'hours': forms.NumberInput(attrs={'placeholder': 'Number of hours', 'min': 1})
+        }
+
+    def clean_hours(self):
+        hours = self.cleaned_data.get('hours')
+        
+        print(f"Debug: Entered hours = {hours}")  # Debugging line
+
+        if hours is None:
+            raise forms.ValidationError("This field is required.")
+
+        try:
+            hours = int(hours)  # Ensure it's treated as an integer
+        except ValueError:
+            raise forms.ValidationError("Please enter a valid number.")
+
+        if hours < 1:
+            raise forms.ValidationError("Number of hours must be at least 1.")
+
+        return hours  # Ensure it's returned properly

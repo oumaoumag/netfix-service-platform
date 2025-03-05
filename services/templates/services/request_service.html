@@ -5,9 +5,26 @@
 
 {% block content %}
     <p class="title">Service Request Details</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="error_message">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
     <form method="POST">
         {% csrf_token %}
-        {{form}}
+        
+        <div class="mb-3">
+            {{ form.address.label_tag }}
+            {{ form.address }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.hours.label_tag }}
+            {{ form.hours }}
+        </div>
+
         <button type="submit">Request</button>
     </form>
 {% endblock %}
