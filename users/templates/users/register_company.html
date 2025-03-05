@@ -1,34 +1,49 @@
 {% extends 'main/base.html' %} 
 {% block title %}
   Company Registration
-{%endblock %}
+{% endblock %}
 
 {% block content %}
     <form method="POST">
       {% csrf_token %}
-      {{form.errors}}
+      {{ form.errors }}
+
       <div class="mb-3">
+          <label for="{{ form.username.id_for_label }}">Company Name</label>
           {{ form.username }}
-        <span class="helptext">{{ form.username.help_text }}</span> 
+          <span class="helptext">{{ form.username.help_text }}</span> 
       </div>
       
       <div class="mb-3">
+          <label for="{{ form.email.id_for_label }}">Company Email</label>
           {{ form.email }}
           <span class="helptext">{{ form.email.help_text }}</span>
       </div>
       
       <div class="mb-3">
+          <label for="{{ form.password1.id_for_label }}">Password</label>
           {{ form.password1 }}
           <span class="helptext">{{ form.password1.help_text }}</span>
       </div>
       
       <div class="mb-3">
+          <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
           {{ form.password2 }}
           <span class="helptext">{{ form.password2.help_text }}</span>
       </div> 
-      {{form.field}}
-      
-        <span class="helptext">Choose Field Above</span>
-        <button type="submit" name="register">Register</button>
+
+      {{ form.field }}
+      <span class="helptext">Choose Field Above</span>
+
+      <button type="submit" name="register">Register</button>
     </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("{{ form.username.id_for_label }}").setAttribute("placeholder", "Enter Company Name");
+            document.getElementById("{{ form.email.id_for_label }}").setAttribute("placeholder", "Enter Company Email");
+            document.getElementById("{{ form.password1.id_for_label }}").setAttribute("placeholder", "Enter Password");
+            document.getElementById("{{ form.password2.id_for_label }}").setAttribute("placeholder", "Confirm Password");
+        });
+    </script>
 {% endblock %}
