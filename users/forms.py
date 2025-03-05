@@ -43,6 +43,15 @@ class CustomerSignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2", "date_of_birth"]
+        
+    @transaction.atomic
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.is_customer = True
+        if commit:
+            user.save()
+            Customer.objects.create(user=user, date_of_birth=self.cleaned_data['date_of_birth'])
+            return user
 
 
 class CompanySignUpForm(UserCreationForm):
