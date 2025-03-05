@@ -12,7 +12,6 @@ body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   margin: 0;
-  padding-top: 80px; /* Offset for sticky navbar */
 }
 
 a {
@@ -109,8 +108,10 @@ button:hover {
 /* ======================================== Navbar ============================================== */
 
 .navbar {
-  position: sticky;
-  top: 0;
+  box-sizing: border-box;  
+  height: 72px;           
+  margin: 0; 
+  position: static;
   background: var(--dark);
   padding: 1rem 2rem;
   box-shadow: 0 2px 15px rgba(0,0,0,0.1);
@@ -162,11 +163,11 @@ button:hover {
   margin: 0.5rem 0;
 }
 
-.last_navbar {
+/* .last_navbar {
   right: 0;
   position: absolute;
   margin-right: 20px;
-}
+} */
 
 /* ============================================================================================== */
 
@@ -273,6 +274,10 @@ pre {
 
 .label_images {
   display: block;
+}
+
+.logo img{
+  display: block;         /* Remove inline spacing under logo */
 }
 
 /* ============================================================================================== */
@@ -715,4 +720,5 @@ span {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    /* padding-top: 2rem;  Add some top padding */
 }
