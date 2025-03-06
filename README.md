@@ -90,7 +90,7 @@ NetFix is a Django-based service marketplace that connects companies offering ho
 
 ## Authors
 
-- **Sheila Juma** - [GitHub Profile](https://learn.zone01kisumu.ke/git/sjuma)
+- **Sheilla Juma** - [GitHub Profile](https://learn.zone01kisumu.ke/git/sjuma)
 - **Ouma Ouma** - [GitHub Profile](https://github.com/oumaoumag)
 
 ## License
