@@ -369,4 +369,36 @@ span {
   margin: 5px 0px;
 }
 
-/* ============================================================================================== */
+/* ======================= reset password ======================================================================= */
+.password-reset-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #646464;
+  border-radius: 25px;
+  box-shadow: 0px 0px 35px -2px #ec2f00;
+}
+
+.password-reset-container h2 {
+  color: #ee5e4b;
+  margin-bottom: 1.5rem;
+}
+
+.password-reset-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.password-reset-container .btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #ee5e4b;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.password-reset-container .btn:hover {
+  background: #e02a21;
+}
